@@ -26,3 +26,28 @@ def parse_rooms(data) -> list:
         entry.update({'max_capacity': data[i]['row'][6]})
         entries.append(entry)
     return entries
+
+def parse_events(data) -> list:
+    entries = []
+
+    for i in range(0, len(data)):
+        for j in range(0, len(data[i].get('rsrv'))):
+            locations = []
+            entry = {
+                'event_id': None,
+                'start': None,
+                'end': None,
+                'name': None,
+                'locations': None,
+                'all_day': None
+            }
+            entry.update({'event_id': data[i].get('rsrv')[j].get('event_id')})
+            entry.update({'start': data[i].get('rsrv')[j].get('rsrv_start_dt')})
+            entry.update({'end': data[i].get('rsrv')[j].get('rsrv_end_dt')})
+            entry.update({'name': data[i].get('rsrv')[j].get('event_name')})
+            entry.update({'all_day': bool(data[i].get('rsrv')[j].get('all_day'))})
+            for k in range(0, len(data[i].get('rsrv')[j].get('subject'))):
+                locations.append(data[i].get('rsrv')[j].get('subject')[k].get('itemName'))
+            entry.update({'locations': locations})
+            entries.append(entry)
+    return entries
