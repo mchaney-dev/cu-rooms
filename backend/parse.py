@@ -31,6 +31,8 @@ def parse_events(data) -> list:
     entries = []
 
     for i in range(0, len(data)):
+        if data[i].get('rsrv') is None:
+            break
         for j in range(0, len(data[i].get('rsrv'))):
             locations = []
             entry = {

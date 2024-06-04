@@ -14,8 +14,6 @@ def scrape_rooms(url: str, verbose=False) -> tuple:
 def scrape_events(url: str, verbose=False):
     if verbose:
         print('[DEBUG] Sleeping for 10 seconds...')
-    
     time.sleep(10) # Be nice to the server
     response = json.loads(requests.get(url).text)
-
     return response.get('root').get('events')
