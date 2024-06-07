@@ -15,7 +15,7 @@ class Driver:
         self.verbose = verbose
         self.status = 'idle'
         if not os.path.exists('./rooms.pkl'):
-            self._roonms = []
+            self._rooms = []
         else:
             self.__retrieve_rooms__(self.verbose)
         if not os.path.exists('./events.pkl'):
