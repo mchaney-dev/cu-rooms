@@ -1,9 +1,11 @@
 from backend.driver import Driver
 import flask
 import json
+from flask_cors import CORS
 
 driver = Driver(verbose=True)
 app = flask.Flask('CU Rooms')
+CORS(app)
 
 @app.route("/")
 def home():
