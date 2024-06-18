@@ -17,7 +17,7 @@ class Driver:
         if not os.path.exists('./rooms.pkl'):
             self._rooms = []
         else:
-            self.__retrieve_rooms__(self.verbose)
+            self._rooms = self.__retrieve_rooms__(self.verbose)
         if not os.path.exists('./events.pkl'):
             self._events = []
         else:
@@ -113,14 +113,20 @@ class Driver:
             events = pickle.load(f)
         return events
 
-    def get_rooms(self):
+    def refresh_rooms(self):
         self.status = 'running'
         self.__store_rooms__(self.sleep, self.verbose)
         self._rooms = self.__retrieve_rooms__(self.verbose)
         self.status = 'idle'
 
-    def get_events(self, start: Optional[datetime.datetime], end: Optional[datetime.datetime]):
+    def refresh_events(self, start: Optional[datetime.datetime], end: Optional[datetime.datetime]):
         self.status = 'running'
         self.__store_events__(start, end, self.sleep, self.verbose)
         self._events = self.__retrieve_events__(self.verbose)
         self.status = 'idle'
+
+    def get_rooms(self) -> list:
+        return self._rooms
+    
+    def get_events(self) -> list:
+        return self._events
